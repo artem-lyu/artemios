@@ -1,10 +1,14 @@
 "use client";
 
-import { VoiceProvider } from "@humeai/voice-react";
+import { VoiceProvider, useVoice } from "@humeai/voice-react";
 import Messages from "./Messages";
 import Controls from "./Controls";
 import StartCall from "./StartCall";
-import { ComponentRef, useRef } from "react";
+import { ComponentRef, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import React from "react";
+
+
 
 export default function ClientComponent({
   accessToken,
@@ -17,7 +21,7 @@ export default function ClientComponent({
   return (
     <div
       className={
-        "relative grow flex flex-col mx-auto w-full overflow-hidden h-[0px]"
+        "relative grow flex flex-col mx-auto w-full overflow-hidden h-[full]"
       }
     >
       <VoiceProvider

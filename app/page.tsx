@@ -1,5 +1,6 @@
 import { getHumeAccessToken } from "@/utils/getHumeAccessToken";
 import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 
 const Chat = dynamic(() => import("@/components/Chat"), {
   ssr: false,
@@ -12,9 +13,11 @@ export default async function Page() {
     throw new Error();
   }
 
+  
   return (
     <div className={"grow flex flex-col"}>
       <Chat accessToken={accessToken} />
     </div>
   );
 }
+
