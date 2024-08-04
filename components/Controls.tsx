@@ -19,9 +19,6 @@ export default function Controls() {
   const handleEndCall = async () => {
     await disconnect();
     router.push('/dashboard')
-    try {
-      
-    }
     
   }
     return (
