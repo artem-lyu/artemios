@@ -1,5 +1,7 @@
 "use client"
 import Link from "next/link"
+import { signOut } from '@/auth';
+import { handleSignOut } from "@/app/lib/signOutAction";
 
 export default function Sidebar() {
     return (
@@ -34,6 +36,17 @@ export default function Sidebar() {
                         <Link href="/upgrade">
                             <p className="block px-4 py-2 hover:bg-white">Upgrade to Premium</p>
                         </Link>
+                    </li>
+                    <li className="mb-2">
+                        <form
+                            action={handleSignOut}
+                        >
+                            <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+                                {/* <PowerIcon className="w-6" /> */}
+                                <div className="hidden md:block">Sign Out</div>
+                            </button>
+                        </form>
+
                     </li>
                 </ul>
             </nav>

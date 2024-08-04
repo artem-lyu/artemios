@@ -4,10 +4,12 @@ import { sql } from '@vercel/postgres';
 export async function GET(request: NextRequest) {
   try {
     const result = await sql`
-      CREATE TABLE IF NOT EXISTS Sessions (
+      CREATE TABLE IF NOT EXISTS Users (
         id SERIAL PRIMARY KEY,
-        date VARCHAR(255) NOT NULL,
-        duration TIME NOT NULL
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        CHECK (LENGTH(password) >= 12)
       );
     `;
     return NextResponse.json({ result });
