@@ -9,8 +9,9 @@ import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
 export default function Controls() {
-  const { connect, chatMetadata, disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
+  const { connect, disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
   const [isCallActive, setIsCallActive] = useState(false);
 
   const router = useRouter();
@@ -21,11 +22,9 @@ export default function Controls() {
 
   const handleEndCall = async () => {
     await disconnect();
-    if (chatMetadata?.chat_id) {
-      router.push('/dashboard')
-    }
+    router.push('/dashboard')
+    
   }
-
     return (
       <div
         className={
@@ -54,8 +53,7 @@ export default function Controls() {
                 "p-4 bg-card border border-border rounded-lg shadow-sm flex items-center gap-4"
               }
             >
-              <Toggle
-                pressed={!isMuted}
+              <Toggle pressed={!isMuted}
                 onPressedChange={() => {
                   if (isMuted) {
                     unmute();
