@@ -98,6 +98,9 @@ importers:
       ts-pattern:
         specifier: ^5.1.2
         version: 5.1.2
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@types/bcrypt':
         specifier: ^5.0.2
