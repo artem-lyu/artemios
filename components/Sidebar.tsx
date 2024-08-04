@@ -3,13 +3,13 @@ import Link from "next/link"
 
 export default function Sidebar() {
     return (
-        <div className="h-screen bg-green-500 text-blue w-64 fixed">
+        <div className="z-10 h-screen bg-green-500 text-blue w-64 fixed">
 
             <nav className="mt-8">
                 <div className="p-4">
                     <h1 className=" text-white font-bold ">Heal.app</h1>
                 </div>
-                <ul>
+                <ul className="font-mono">
                     <li className="mb-2">
                         <Link href="/landing">
                             <p className="block px-4 py-2 hover:bg-white">Start new session</p>

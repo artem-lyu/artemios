@@ -51,10 +51,11 @@
 
 @layer base {
   * {
-    @apply border-border font-sans;
+    @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: "Kaisei_HarunoUmi";
   }
 }
 
@@ -63,10 +64,9 @@
   src: url("../public/fonts/Kaisei_HarunoUmi/KaiseiHarunoUmi-Regular.ttf");
 }
 
-.circle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  opacity: 50%;
-  background: #34C759;
+@font-face {
+  font-family: "Kaisei_HarunoUmi_Bold";
+  src: url("../public/fonts/Kaisei_HarunoUmi/KaiseiHarunoUmi-Bold.ttf");
 }
+
+
