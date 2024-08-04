@@ -21,7 +21,6 @@ export default async function HomePage() {
 
     return (
         <div className="items-center height h-screen">
-            <Sidebar className="z-10"/>
             <h1 className="font-kaisei py-[80px] text-5xl text-center">How are you today?</h1>
             <Chat accessToken={accessToken} />
         </div>
