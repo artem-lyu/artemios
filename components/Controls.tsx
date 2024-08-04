@@ -15,14 +15,13 @@ export default function Controls() {
   const [isCallActive, setIsCallActive] = useState(false);
 
   const router = useRouter();
-  const handleStartCall = async () => {
-    await connect();
-    setIsCallActive(true);
-  }
 
   const handleEndCall = async () => {
     await disconnect();
     router.push('/dashboard')
+    try {
+      
+    }
     
   }
     return (
