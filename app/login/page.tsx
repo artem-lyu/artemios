@@ -1,5 +1,5 @@
 import HumeLogo from "@/components/logos/Hume"
-import LoginForm from "@/components/ui/LoginForm"
+import { SignIn } from "@/components/ui/sign-in-button"
 
 export default function LoginPage() {
     return (
@@ -10,7 +10,7 @@ export default function LoginPage() {
             <HumeLogo />
           </div>
         </div>
-        <LoginForm />
+        <SignIn />
       </div>
     </main>
     )

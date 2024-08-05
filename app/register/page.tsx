@@ -2,6 +2,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { first } from 'remeda';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -29,7 +30,7 @@ const Register = () => {
     });
 
     if (response.ok) {
-      router.push('/login'); // Redirect to login or home page after successful registration
+      router.push('/landing'); // Redirect to login or home page after successful registration
     } else {
       const data = await response.json();
       setError(data.message);

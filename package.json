@@ -11,6 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.4.2",
     "@humeai/voice": "^0.1.6",
     "@humeai/voice-react": "^0.1.6",
     "@next/font": "^14.2.5",
