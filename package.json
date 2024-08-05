@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://github.com/humeai/hume-evi-next-js-starter",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
