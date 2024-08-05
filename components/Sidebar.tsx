@@ -2,18 +2,14 @@
 import Link from "next/link"
 import UserEmail from "./Providers";
 import { handleSignOut } from "@/app/lib/signOutAction";
-import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-import { useEffect, useState } from "react";
 
 export default function Sidebar() {
 
-    }
+    
 
     return (
         <div className="z-10 h-screen bg-green-500 text-blue w-64 fixed">
             <nav className="mt-8">
-            <UserEmail />
                 <div className="p-4">
                     <h1 className=" text-white font-bold ">Heal.app</h1>
                 </div>
