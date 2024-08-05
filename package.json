@@ -13,6 +13,7 @@
     "@humeai/voice": "^0.1.6",
     "@humeai/voice-react": "^0.1.6",
     "@next/font": "^14.2.5",
+    "@prisma/client": "5.17.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toggle": "^1.0.3",
