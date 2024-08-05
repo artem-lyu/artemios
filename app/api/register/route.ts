@@ -13,12 +13,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // Wait for the result of the asynchronous call
+    // Check if the user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
-    // Check if the user already exists
     if (existingUser) {
       return NextResponse.json({ message: 'User already exists!' }, { status: 400 });
     }
@@ -26,22 +25,24 @@ export async function POST(req: NextRequest) {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the new user
+    // Create the new user and associated account
     const user = await prisma.user.create({
       data: {
+        name: `${firstName} ${lastName}`,
         email,
+        accounts: {
+          create: {
+            type: 'credentials',
+            provider: 'credentials',
+            providerAccountId: email,
+            password: hashedPassword, // Storing the hashed password
+          },
+        },
       },
     });
 
-    // Convert the id to a string (if needed by your application)
-    const userWithStringId = {
-      ...user,
-      id: user.id.toString(),
-    };
-
-    return NextResponse.json(userWithStringId, { status: 201 });
+    return NextResponse.json(user, { status: 201 });
   } catch (error) {
-    // Handle different types of errors appropriately
     if (error instanceof Error) {
       return NextResponse.json({ message: 'Internal Server Error', error: error.message }, { status: 500 });
     } else {

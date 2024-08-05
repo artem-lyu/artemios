@@ -39,6 +39,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
+  password      String? // added string for manual registration
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
