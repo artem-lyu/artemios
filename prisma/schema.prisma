@@ -28,7 +28,7 @@ model Session {
   userId Int // foreign key to user
   user User @relation(fields : [userId], references: [id])
   date DateTime
-  durationSeconds Int // duration time in remainder seconds
+  durationSeconds Int // duration time in seconds
   transcript String?
 }
 
