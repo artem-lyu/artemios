@@ -1,6 +1,5 @@
 "use client"
 import Link from "next/link"
-import UserEmail from "./Providers";
 import { handleSignOut } from "@/app/lib/signOutAction";
 
 export default function Sidebar() {
