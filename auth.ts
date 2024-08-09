@@ -5,11 +5,15 @@ import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from 'bcrypt';
 import { signInSchema } from "./lib/zod"
+import { redirect } from "next/navigation"
 
 const prisma = new PrismaClient()
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/login'
+  },
+  adapter: PrismaAdapter(prisma), // defaults session strategy to database
   providers:
     [
       Google({
@@ -18,28 +22,51 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }),
       Credentials({
         credentials: {
-          email: {label : "Email", type: "email", placeholder: "email@example.com"},
-          password: {label: "Password", type: "password"},
+          email: { label: "Email", type: "email", placeholder: "email@example.com" },
+          password: { label: "Password", type: "password" },
         },
-        authorize: async(credentials) => {
-          if (!credentials?.email || !credentials.password) {
-            return null;
+        authorize: async (credentials) => {
+          try {
+            if (!credentials?.email || !credentials.password) {
+              throw new Error("Missing credentials");
+            }
+        
+            const { email, password } = await signInSchema.parseAsync(credentials);
+        
+            const user = await prisma.user.findUnique({
+              where: { email: email as string },
+            });
+        
+            if (!user) {
+              throw new Error("User not found");
+            }
+        
+            const userId = await prisma.account.findUnique({
+              where: {
+                provider_providerAccountId: {
+                  provider: 'credentials',
+                  providerAccountId: email,
+                },
+              },
+            });
+        
+            if (!userId) {
+              throw new Error("User ID not found");
+            }
+        
+            const compare = await bcrypt.compare(password as string, userId?.password as string);
+        
+            if (!compare) {
+              throw new Error("Invalid password");
+            }
+        
+            return user;
+        
+          } catch (error) {
+            console.log("Error during authorization:", error);
+            throw new Error("Authorization failed");
           }
-
-          const { email, password } = await signInSchema.parseAsync(credentials)
           
-          const user = await prisma.user.findUnique({
-            where: {email : email as string}
-          })
-
-          if (!user) {
-            throw new Error('User not found')
-          }
-
-          const pwHashed = await bcrypt.hash(password as string, 10)
-
-
-          return user
         }
       })
     ],

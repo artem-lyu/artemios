@@ -1,7 +1,12 @@
 import { SignIn } from "@/components/sign-in"
-
-export default function LoginPage () {
+import { SignInGoogle } from "@/components/ui/sign-in-button-google"
+export default function LoginPage() {
   return (
-    <SignIn />
+    <>
+      <SignIn />
+      <div className="width">
+        <SignInGoogle />
+      </div>
+    </>
   )
 }

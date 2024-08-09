@@ -1,5 +1,6 @@
 import { signIn } from "@/auth"
- 
+import { redirect } from "next/dist/server/api-utils"
+
 export function SignIn() {
   return (
     <form
