@@ -13,7 +13,7 @@ export default async function HomePage() {
     const session = await auth();
     if (!session?.user) {
         console.log("no session!");
-        redirect("/login");
+        redirect("/login?session=false");
     }
 
     const Chat = dynamic(() => import("@/components/Chat"), {

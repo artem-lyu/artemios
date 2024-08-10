@@ -2,14 +2,22 @@
 import { authenticate} from "../lib/actions"
 import { useFormState } from "react-dom";
 import { TriangleAlert } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
 
-  const [errorMessage, formAction, isPending] = useFormState(
+  let [errorMessage, formAction, isPending] = useFormState(
     authenticate,
     undefined,
   );
 
+  const searchParams = useSearchParams();
+  const sessionParam = searchParams?.get("session");
+
+  if (sessionParam === "false") {
+    errorMessage = "You must be signed in to access this page.";
+
+  }
 
   return (
     <>
