@@ -5,8 +5,16 @@ import dynamic from "next/dynamic";
 import { getHumeAccessToken } from "@/utils/getHumeAccessToken";
 import ClientComponent from "@/components/Chat";
 import Sidebar from "@/components/Sidebar";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
+
+    const session = await auth();
+    if (!session?.user) {
+        console.log("no session!");
+        redirect("/login");
+    }
 
     const Chat = dynamic(() => import("@/components/Chat"), {
         ssr: false,

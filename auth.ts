@@ -6,12 +6,12 @@ import Credentials from "next-auth/providers/credentials"
 import bcrypt from 'bcrypt';
 import { signInSchema } from "./lib/zod"
 import { ZodError } from "zod"
-import { redirect } from "next/navigation"
 import { isRedirectError } from "next/dist/client/components/redirect"
 
 const prisma = new PrismaClient()
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  session: { strategy: "jwt", maxAge: 24 * 60 * 60 },
   adapter: PrismaAdapter(prisma), // defaults session strategy to database
   providers:
     [
@@ -70,11 +70,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (isRedirectError(error)) {
               throw error
             }
-            return null
+            throw error
           }
         }
       })
     ],
+    callbacks: {
+      async signIn({ user, account, profile, email, credentials }) {
+        return true;
+      },
+      async session({session}) {
+        return session;
+      },
+    }
 })
 
 
