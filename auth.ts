@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { AuthError } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import Google from "next-auth/providers/google"
@@ -26,9 +26,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           password: { label: "Password", type: "password" },
         },
         authorize: async (credentials) => {
-          try {
-            if (!credentials?.email || !credentials.password) {
-              throw new Error("Missing credentials");
+            if (!credentials.email || !credentials.password) {
+              throw new AuthError("Missing credentials");
             }
         
             const { email, password } = await signInSchema.parseAsync(credentials);
@@ -38,7 +37,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             });
         
             if (!user) {
-              throw new Error("User not found");
+              throw new AuthError("User not found");
             }
         
             const userId = await prisma.account.findUnique({
@@ -51,21 +50,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             });
         
             if (!userId) {
-              throw new Error("User ID not found");
+              throw new AuthError("Invalid user or password is incorrect");
             }
         
             const compare = await bcrypt.compare(password as string, userId?.password as string);
         
             if (!compare) {
-              throw new Error("Invalid password");
+              throw new AuthError("Invalid user or password is incorrect");
             }
         
             return user;
-        
-          } catch (error) {
-            console.log("Error during authorization:", error);
-            throw new Error("Authorization failed");
-          }
+      
           
         }
       })
