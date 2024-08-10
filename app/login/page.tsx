@@ -17,6 +17,7 @@ export default function LoginPage() {
       <form
         action={formAction}
       >
+        <input type="hidden" name="callbackUrl" value="/landing" />
         <label>
           Email
           <input name="email" type="email" />

@@ -2,6 +2,8 @@
 
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+import { redirect } from 'next/navigation';
 
 export async function authenticate(
   prevState: string | undefined,
@@ -14,7 +16,9 @@ export async function authenticate(
       const cleanedMessage = error.message.replace(/\. Read more at .+$/, '');
       return cleanedMessage
     }
-    console.error(error);
-    return 'An unexpected error occurred';
+    if (isRedirectError(error)) {
+      redirect('/landing');
+    }
   }
 }
+

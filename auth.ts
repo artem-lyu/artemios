@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import { signInSchema } from "./lib/zod"
 import { ZodError } from "zod"
 import { redirect } from "next/navigation"
+import { isRedirectError } from "next/dist/client/components/redirect"
 
 const prisma = new PrismaClient()
 
@@ -66,7 +67,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (error instanceof AuthError) {
               throw new AuthError(error.message);
             }
-            throw error
+            if (isRedirectError(error)) {
+              throw error
+            }
+            return null
           }
         }
       })
