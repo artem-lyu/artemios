@@ -1,11 +1,10 @@
 import "../globals.css";
 import React from 'react';
-import { useVoice } from "@humeai/voice-react";
 import dynamic from "next/dynamic";
 import { getHumeAccessToken } from "@/utils/getHumeAccessToken";
-import ClientComponent from "@/components/Chat";
 import Sidebar from "@/components/Sidebar";
 import { auth } from "@/auth";
+// @ts-ignore
 import { redirect } from "next/navigation";
 
 export default async function HomePage() {
@@ -30,7 +29,7 @@ export default async function HomePage() {
     return (
         <div className="items-center height h-screen">
             <Sidebar />
-            <h1 className="font-kaisei py-[80px] text-5xl text-center">How are you today?</h1>
+            <h1 className="font-kaisei py-[80px] text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
             <Chat accessToken={accessToken} />
         </div>
     )

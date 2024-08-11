@@ -3,6 +3,7 @@
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { isRedirectError } from 'next/dist/client/components/redirect';
+// @ts-ignore
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 

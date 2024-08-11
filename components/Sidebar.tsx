@@ -1,10 +1,9 @@
-"use client"
 import Link from "next/link"
 import { handleSignOut } from "@/app/lib/signOutAction";
+import { auth } from "@/auth";
+import UserInformation from "./ui/user-information";
 
 export default function Sidebar() {
-
-    
 
     return (
         <div className="z-10 h-screen bg-green-500 text-blue w-64 fixed">
@@ -13,6 +12,9 @@ export default function Sidebar() {
                     <h1 className=" text-white font-bold ">Heal.app</h1>
                 </div>
                 <ul className="font-mono">
+                    <li className="mb-2">
+                        <UserInformation />
+                    </li>
                     <li className="mb-2">
                         <Link href="/landing">
                             <p className="block px-4 py-2 hover:bg-white">Start new session</p>
