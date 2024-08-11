@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { handleSignOut } from "@/app/lib/signOutAction";
-import { auth } from "@/auth";
 import UserInformation from "./ui/user-information";
 
 export default function Sidebar() {

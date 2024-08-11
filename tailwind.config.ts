@@ -16,6 +16,7 @@ const config = {
       'mono': ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono],
       'kaisei': ['"Kaisei_HarunoUmi"', 'sans-serif'],
       'kaisei-bold': ['"Kaisei_HarunoUmi_bold"', 'sans-serif'],
+      'absans': ['Absans-Regular'],
     },
     container: {
       center: true,
