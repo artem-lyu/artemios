@@ -6,6 +6,8 @@ import { isRedirectError } from 'next/dist/client/components/redirect';
 // @ts-ignore
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
+import { PrismaClient } from '@prisma/client';
+import path from 'path';
 
 
 
@@ -39,5 +41,26 @@ export async function authenticate(
       }
       throw error;
     }
+  }
+}
+
+export async function saveMessage(chatHistory: any[]) {
+  const session = await auth();
+
+  const user = session?.user;
+  try {
+    const response = await fetch(process.env.URL + '/api/saveChat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chatHistory,
+        user,
+      })
+    }
+    )
+  } catch (error) {
+    console.error('An error occurred:', error);
   }
 }
