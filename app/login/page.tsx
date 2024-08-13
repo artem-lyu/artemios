@@ -4,21 +4,21 @@ import { useFormState } from "react-dom";
 import { TriangleAlert } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { Suspense } from "react";
 
 export default function LoginPage() {
-
   let [errorMessage, formAction, isPending] = useFormState(
     authenticate,
     undefined,
   );
+  // const searchParams = useSearchParams();
+  
+  // const sessionParam = searchParams?.get("session");
 
-  const searchParams = useSearchParams();
-  const sessionParam = searchParams?.get("session");
+  // if (sessionParam === "false") {
+  //   errorMessage = "You must be signed in to access this page.";
 
-  if (sessionParam === "false") {
-    errorMessage = "You must be signed in to access this page.";
-
-  }
+  // }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-slate-500">
