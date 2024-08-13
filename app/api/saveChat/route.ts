@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
     const { chatHistory, user } = await req.json();
 
     const filteredMessages = chatHistory
-        .filter(entry => entry.type === 'user_message' || entry.type === 'assistant_message')
-        .map(entry => `${entry.message.role}: ${entry.message.content}`)
+        .filter((entry: { type: string; }) => entry.type === 'user_message' || entry.type === 'assistant_message')
+        .map((entry: { message: { role: any; content: any; }; }) => `${entry.message.role}: ${entry.message.content}`)
         .join('\n');
 
     const chat = await prisma.chat.create({
