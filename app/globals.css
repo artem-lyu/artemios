@@ -77,9 +77,3 @@
   font-family: "Absans-Regular";
   src: url("../public/fonts/Absans/Absans-Regular.otf");
 }
-
-
-.responsive-image {
-  max-width: 100%;
-  height: auto;
-}

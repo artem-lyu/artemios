@@ -5,6 +5,7 @@ import Image from 'next/image';
 import undraw_runner2 from '@/public/images/undraw_runner_start_x-0-uu.svg';
 import undraw_runner from '@/public/images/undraw_different_love_a-3-rg.svg';
 import undraw_hiking from '@/public/images/undraw_hiking_re_k0bc.svg';
+import different_love from '@/public/images/undraw_different_love.png'
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -14,28 +15,28 @@ export default async function Page() {
 
   return (
     <>
-    <div className="w-screen h-screen bg-slate-500 flex flex-col relative">
-      <div className='relative'>
-        <a href="/login">
-          <motion.div
-            whileHover={{
-              opacity: 0.6,
-            }}
-          >
-            <LogInIcon className='absolute top-0 right-0 h-12 w-12 mt-[2vh] mr-[2vw]' />
-          </motion.div>
-        </a>
-      </div>
-      <div className='relative flex flex-col mt-auto mx-[6vh] font-absans'>
-        <h1 className=" text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
-        <TypeAnimation
-          speed={55}
-          sequence={[
-            "We're so glad you could make it!",
-            1000,
-            "We're so glad you could make it!\nWe're here to help you grow! ",
-          ]}
-          wrapper="span" cursor={false} repeat={0} style={{ fontSize: '2em', display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
+      <div className="w-screen h-screen bg-slate-500 flex flex-col relative">
+        <div className='relative flex flex-col mx-[6vw] mt-[6vh] font-absans'>
+          <div className='ml-auto'>
+            <a href="/login">
+              <motion.div
+                whileHover={{
+                  opacity: 0.6,
+                }}
+              >
+                <LogInIcon className='relative h-12 w-12 ' />
+              </motion.div>
+            </a>
+          </div>
+          <h1 className="flex flex-col text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
+          <TypeAnimation
+            speed={55}
+            sequence={[
+              "We're so glad you could make it!",
+              1000,
+              "We're so glad you could make it!\nWe're here to help you grow. ",
+            ]}
+            wrapper="span" cursor={false} repeat={0} style={{ fontSize: '2em', display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -51,13 +52,13 @@ export default async function Page() {
               Get started
             </motion.button>
           </motion.div>
-      </div>
-
-      <div className="relative flex flex-col w-auto justify-center items-center h-screen mb-[2vh]">
-          <Image src={undraw_runner} alt="Runner" className='responsive-image mx-auto opacity-75' />
         </div>
 
-    </div >
+        <div className="relative flex flex-col w-auto justify-center items-center h-screen mb-[6vh]">
+          <Image src={undraw_runner} alt="Runner" className='mx-auto mt-auto opacity-75' />
+        </div>
+
+      </div >
     </>
   );
 }
