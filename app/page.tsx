@@ -26,7 +26,7 @@ export default async function Page() {
           </motion.div>
         </a>
       </div>
-      <div className='relative flex flex-col mt-auto ml-auto mr-auto font-absans'>
+      <div className='relative flex flex-col mt-auto mx-[6vh] font-absans'>
         <h1 className=" text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
         <TypeAnimation
           speed={55}
