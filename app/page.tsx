@@ -53,7 +53,7 @@ export default async function Page() {
           </motion.div>
       </div>
 
-      <div className="relative flex flex-col w-auto justify-center items-center h-auto mb-[2vh]">
+      <div className="relative flex flex-col w-auto justify-center items-center h-screen mb-[2vh]">
           <Image src={undraw_runner} alt="Runner" className='responsive-image mx-auto opacity-75' />
         </div>
 
