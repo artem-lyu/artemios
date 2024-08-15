@@ -32,6 +32,18 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "custom-palette-3": {
+          "50": "#fbfaf6",
+          "100": "#f7f4ee",
+          "200": "#efe9dc",
+          "300": "#e6dfcb",
+          "400": "#ded4b9",
+          "500": "#d6c9a8",
+          "600": "#aba186",
+          "700": "#807965",
+          "800": "#565043",
+          "900": "#2b2822"
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
