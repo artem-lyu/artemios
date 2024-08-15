@@ -11,32 +11,32 @@ import { useState } from 'react';
 
 
 export default async function Page() {
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <>
-      <div className="w-screen h-screen bg-slate-500 flex flex-col relative">
+      <div className="w-screen h-screen bg-slate-500 flex flex-col relative ">
         <div className='relative flex flex-col mx-[6vw] mt-[6vh] font-absans'>
-          <div className='ml-auto'>
+
+        <div className="flex justify-between items-start ">
+            <h1 className="text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
             <a href="/login">
               <motion.div
                 whileHover={{
                   opacity: 0.6,
                 }}
               >
-                <LogInIcon className='relative h-12 w-12 ' />
+                <LogInIcon className='h-12 w-12' />
               </motion.div>
             </a>
           </div>
-          <h1 className="flex flex-col text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
           <TypeAnimation
             speed={55}
+            className="text-xl md:text-2xl lg:text-3xl"
             sequence={[
               "We're so glad you could make it!",
               1000,
               "We're so glad you could make it!\nWe're here to help you grow. ",
             ]}
-            wrapper="span" cursor={false} repeat={0} style={{ fontSize: '2em', display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
+            wrapper="span" cursor={false} repeat={0} style={{display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -52,14 +52,11 @@ export default async function Page() {
               Get started
             </motion.button>
           </motion.div>
+          {/* <div>
+            <Image src={undraw_runner} alt="Runner" className='mr-0 mb-0 opacity-75 object-contain' />
+          </div> */}
         </div>
-
-        <div className="relative flex flex-col w-auto justify-center items-center h-screen mb-[6vh]">
-          <Image src={undraw_runner} alt="Runner" className='mx-auto mt-auto opacity-75' />
-        </div>
-
       </div >
-    </>
   );
 }
 
