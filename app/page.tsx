@@ -13,7 +13,7 @@ import { useState } from 'react';
 export default async function Page() {
 
   return (
-      <div className="w-screen h-screen bg-slate-500 flex flex-col relative ">
+      <div className="h-screen bg-slate-500 flex flex-col relative ">
         <div className='relative flex flex-col mx-[6vw] mt-[6vh] font-absans'>
 
         <div className="flex justify-between items-start ">

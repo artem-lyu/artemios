@@ -6,7 +6,7 @@ import { Nav } from "@/components/Nav";
 import { cn } from "@/utils";
 
 export const metadata: Metadata = {
-  title: "Heal.app",
+  title: "ARTEMIOS",
   description: "An app to help you heal",
 };
 
@@ -19,9 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          GeistSans.variable,
-          GeistMono.variable,
-          "flex flex-col min-h-screen"
+          "relative flex flex-col flex-1 lg:overflow-y-auto lg-overflow-x-hidden",
         )}
       >
         {children}
