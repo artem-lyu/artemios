@@ -10,7 +10,7 @@ export default function StartCall() {
     <AnimatePresence>
       {status.value !== "connected" ? (
         <motion.div
-          className={"relative p-4 flex items-center justify-center bg-background"}
+          className={"relative p-4 flex items-center justify-center bg-inherit"}
           initial="initial"
           animate="enter"
           exit="exit"

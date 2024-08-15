@@ -5,7 +5,7 @@ import UserInformation from "./ui/user-information";
 export default function Sidebar() {
 
     return (
-        <div className="z-10 h-screen bg-green-500 text-blue w-64 fixed">
+        <div className="z-10 h-screen bg-green-500 text-blue w-64 fixed font-absans">
             <nav className="mt-8">
                 <div className="p-4">
                     <h1 className=" text-white font-bold ">Heal.app</h1>

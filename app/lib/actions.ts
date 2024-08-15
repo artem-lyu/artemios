@@ -31,7 +31,7 @@ export async function authenticate(
     try {
       const session = await auth()
       if (session) {
-        await signOut(redirect('/login'));
+        await signOut({redirectTo: "/login"});
       }
       await signIn('google', { redirectTo: '/landing' });
     } catch (error) {
