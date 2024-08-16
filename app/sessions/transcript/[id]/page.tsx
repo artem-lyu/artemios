@@ -1,10 +1,8 @@
 "use client"
+import Sidebar from "@/components/Sidebar"
 import { PrismaClient } from "@prisma/client"
 import { useEffect } from "react"
 import { useState } from "react"
-import { getDataById } from "@/app/lib/data"
-import useSWR from "swr"
-import { Fetcher } from "swr"
 
 interface Params {
     id: string
@@ -36,9 +34,16 @@ export default function HomePage({ params }: HomePageProps) {
     if (!chat) {
         return <h1>Loading...</h1>
     }
+    const transcription = chat['transcription']
 
-    const chatString = JSON.stringify(chat)
     return (
-        <h1>bozo! {JSON.stringify(chat)}</h1>
+        <div className="flex w-full h-full bg-slate-500">
+            <div>
+                <Sidebar />
+            </div>
+            <div className="flex-col flex-1 justify-center text-center border">
+                <pre>{transcription}</pre>
+            </div>
+        </div>
     )
 }
