@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import { getDataLatest } from "../lib/data";
+import Link from "next/link";
 
 export default async function HomePage() {
 
@@ -24,7 +25,7 @@ export default async function HomePage() {
     const accessToken = await getHumeAccessToken();
 
 
-    const latestSessions = await getDataLatest();
+    const latestSessions = await getDataLatest(session.user.id!);
 
     if (!accessToken) {
         throw new Error();
@@ -40,10 +41,12 @@ export default async function HomePage() {
                 <Chat accessToken={accessToken} />
                 <div className="flex-col">
                     <h1 className="font-kaisei text-5xl text-center">Your latest sessions</h1>
-                    <ul className="flex-col text-center">
+                    <ul className="flex-col text-center border">
                         {latestSessions.map((session: any) => (
                             <li key={session.id}>
-                                <p>{new Date(session.date).toLocaleString()}</p>
+                                <Link href={`/sessions/transcript/${session.id}`}>
+                                    <p>{new Date(session.date).toLocaleString()}</p>
+                                </Link>
                             </li>
                         ))}
                     </ul>
