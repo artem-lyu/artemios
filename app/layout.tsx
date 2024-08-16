@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { cn } from "@/utils";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "ARTEMIOS",
@@ -17,11 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "relative flex flex-col flex-1 lg:overflow-y-auto lg-overflow-x-hidden",
-        )}
-      >
+      <body>
         {children}
       </body>
     </html>

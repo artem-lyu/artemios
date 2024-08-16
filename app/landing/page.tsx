@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import { getDataLatest } from "../lib/data";
 import Link from "next/link";
+import RootLayout from "../layout";
 
 export default async function HomePage() {
 
@@ -17,6 +18,8 @@ export default async function HomePage() {
         console.log("no session!");
         redirect("/login?session=false");
     }
+
+    const user = session.user;
 
     const Chat = dynamic(() => import("@/components/Chat"), {
         ssr: false,
@@ -34,7 +37,7 @@ export default async function HomePage() {
     return (
         <div className="flex w-full h-full bg-slate-500">
             <div className="mr-auto">
-                <Sidebar />
+                <Sidebar user={user} />
             </div>
             <div className="flex-1">
                 <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
@@ -52,7 +55,6 @@ export default async function HomePage() {
                     </ul>
                 </div>
             </div>
-
         </div>
     )
 }

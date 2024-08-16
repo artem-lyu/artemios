@@ -2,15 +2,23 @@
 
 import Link from "next/link";
 import { handleSignOut } from "@/app/lib/signOutAction";
-import UserInformation from "./ui/user-information";
 import { ChevronFirst, ChevronLast } from "lucide-react";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import UserInformation from "./ui/user-information";
+import { memo } from "react";
+import { auth } from "@/auth";
+
+
+interface SidebarProps {
+    user?: any
+}
 
 const SideBarContext = createContext({});
 
-export default function Sidebar() {
-
+function Sidebar({user}: SidebarProps) {
     const [expanded, setExpanded] = useState(false);
+
+    
 
     return (
         <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[8vh]"} transition-all duration-300`}>
@@ -54,18 +62,18 @@ export default function Sidebar() {
                         </li>
                         <li className="mb-2">
                             <form action={handleSignOut}>
-                                <Link href="/">
-                                    <p className="block px-4 py-2 hover:bg-white">Sign out</p>
-                                </Link>
+                                <button type="submit" className="block px-4 py-2 hover:bg-white">Sign out</button>
                             </form>
                         </li>
                     </ul>
                 </SideBarContext.Provider>
 
-                {/* <div className={`flex justify-center items-center mt-auto p-4 transition-all duration-300 ${expanded ? "block" : "hidden"}`}>
-                    <UserInformation />
-                </div> */}
+                <div className={`flex justify-center items-center mt-auto p-4 transition-all duration-300 ${expanded ? "block" : "hidden"}`}>
+                    {user ? (<p>{user.email}</p>) : null}
+                </div>
             </nav>
         </aside>
     )
 }
+
+export default memo(Sidebar);

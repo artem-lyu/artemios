@@ -31,6 +31,7 @@ export default function HomePage({ params }: HomePageProps) {
         fetchChatSession()
     }, [id])
 
+
     if (!chat) {
         return <h1>Loading...</h1>
     }
@@ -39,7 +40,7 @@ export default function HomePage({ params }: HomePageProps) {
     return (
         <div className="flex w-full h-full bg-slate-500">
             <div>
-                <Sidebar />
+                <Sidebar/>
             </div>
             <div className="flex-col flex-1 justify-center text-center border">
                 <pre>{transcription}</pre>
