@@ -13,7 +13,7 @@ export default function Sidebar() {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <aside className={`h-screen ${expanded ? "w-[32vh]" : "w-[8vh]"} transition-all duration-300`}>
+        <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[8vh]"} transition-all duration-300`}>
             <nav className="h-full flex flex-col bg-custom-palette-3-500 font-absans border-r shadow-sm">
                 <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
                     <h1 className={`text-black font-bold transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0 w-0"}`}>

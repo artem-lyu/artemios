@@ -6,6 +6,8 @@ import Sidebar from "@/components/Sidebar";
 import { auth } from "@/auth";
 // @ts-ignore
 import { redirect } from "next/navigation";
+import { PrismaClient } from "@prisma/client";
+import { getData } from "../lib/data";
 
 export default async function HomePage() {
 
@@ -21,16 +23,33 @@ export default async function HomePage() {
 
     const accessToken = await getHumeAccessToken();
 
+
+    const latestSessions = await getData();
+
     if (!accessToken) {
         throw new Error();
     }
 
-
     return (
-        <div className="items-center w-full h-full bg-slate-500 justify-between">
-            <Sidebar />
-            <h1 className="font-kaisei py-[80px] text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
-            <Chat accessToken={accessToken} />
+        <div className="flex w-full h-full bg-slate-500">
+            <div className="mr-auto">
+                <Sidebar />
+            </div>
+            <div className="flex-1 border">
+                <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
+                <Chat accessToken={accessToken} />
+                <div className="flex-col">
+                    <h1 className="font-kaisei text-5xl text-center">Your latest sessions</h1>
+                    <ul className="flex-col text-center">
+                        {latestSessions.map((session: any) => (
+                            <li key={session.id}>
+                                <p>{new Date(session.date).toLocaleString()}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
         </div>
     )
 }
