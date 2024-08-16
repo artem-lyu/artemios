@@ -7,7 +7,7 @@ import { auth } from "@/auth";
 // @ts-ignore
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
-import { getData } from "../lib/data";
+import { getDataLatest } from "../lib/data";
 
 export default async function HomePage() {
 
@@ -24,7 +24,7 @@ export default async function HomePage() {
     const accessToken = await getHumeAccessToken();
 
 
-    const latestSessions = await getData();
+    const latestSessions = await getDataLatest();
 
     if (!accessToken) {
         throw new Error();
@@ -35,7 +35,7 @@ export default async function HomePage() {
             <div className="mr-auto">
                 <Sidebar />
             </div>
-            <div className="flex-1 border">
+            <div className="flex-1">
                 <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
                 <Chat accessToken={accessToken} />
                 <div className="flex-col">

@@ -3,7 +3,8 @@
 import { PrismaClient } from "@prisma/client"
 import { auth } from "@/auth"
 
-export async function getData() {
+export async function getDataLatest() {
+
     const prisma = new PrismaClient()
     const session = await auth()
 
@@ -18,4 +19,21 @@ export async function getData() {
     });
 
     return latestSessions
+}
+
+export async function getDataAll() {
+    const prisma = new PrismaClient()
+
+    const session = await auth()
+
+    const data = await prisma.chat.findMany({
+        where: {
+            id: session?.user?.id,
+        },
+        orderBy: {
+            date: "desc",
+        }
+    });
+
+    return data
 }

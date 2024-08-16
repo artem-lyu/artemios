@@ -74,6 +74,7 @@ model Chat {
   duration    Int
   date        DateTime
   transcription String?
+  name        String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
