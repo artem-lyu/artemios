@@ -37,3 +37,17 @@ export async function getDataAll(userId: string) {
 
     return data
 }
+
+export async function getDataById(id: string) {
+    const prisma = new PrismaClient()
+
+    const session = await auth()
+
+    const data = await prisma.chat.findUnique({
+        where: {
+            id: id,
+        }
+    });
+
+    return data
+}
