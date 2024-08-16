@@ -10,7 +10,7 @@ export async function getDataLatest() {
 
     const latestSessions = await prisma.chat.findMany({
         where: {
-            userId: session?.user?.id,
+            id: session!.user!.email!,
         },
         orderBy: {
             date: "desc",
@@ -28,7 +28,7 @@ export async function getDataAll() {
 
     const data = await prisma.chat.findMany({
         where: {
-            id: session?.user?.id,
+            id: session!.user!.email!,
         },
         orderBy: {
             date: "desc",
