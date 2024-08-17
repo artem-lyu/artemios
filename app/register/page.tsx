@@ -40,10 +40,11 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <h1>Register</h1>
+
+    <div className="flex flex-col bg-slate-500 min-h-screen w-full items-center justify-center">
+      <h1 className='py-5 text-4xl'>Register</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <div>
           <label htmlFor="firstName">First Name:</label>
           <input
@@ -52,6 +53,7 @@ const Register = () => {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            className='bg-slate-400'
           />
         </div>
         <div>
@@ -62,6 +64,7 @@ const Register = () => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            className='bg-slate-400'
           />
         </div>
         <div>
@@ -72,6 +75,7 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className='bg-slate-400'
           />
         </div>
         <div>
@@ -82,6 +86,7 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className='bg-slate-400'
           />
         </div>
         <button type="submit">Register</button>
