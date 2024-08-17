@@ -18,7 +18,6 @@ const SideBarContext = createContext({});
 function Sidebar({user}: SidebarProps) {
     const [expanded, setExpanded] = useState(false);
 
-    
 
     return (
         <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[8vh]"} transition-all duration-300`}>
@@ -36,27 +35,27 @@ function Sidebar({user}: SidebarProps) {
                 <SideBarContext.Provider value={{ expanded }}>
                     <ul className={`transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0"} ${expanded ? "block" : "hidden"} md:block`}>
                         <li className="mb-2">
-                            <Link href="/landing">
+                            <Link href="/dashboard/landing">
                                 <p className="block px-4 py-2 hover:bg-white">Start new session</p>
                             </Link>
                         </li>
                         <li className="mb-2">
-                            <Link href="/sessions">
+                            <Link href="/dashboard/sessions">
                                 <p className="block px-4 py-2 hover:bg-white">Past Sessions</p>
                             </Link>
                         </li>
                         <li className="mb-2">
-                            <Link href="/settings">
+                            <Link href="/dashboard/settings">
                                 <p className="block px-4 py-2 hover:bg-white">Settings</p>
                             </Link>
                         </li>
                         <li className="mb-2">
-                            <Link href="/support">
+                            <Link href="/dashboard/support">
                                 <p className="block px-4 py-2 hover:bg-white">Support</p>
                             </Link>
                         </li>
                         <li className="mb-2">
-                            <Link href="/upgrade">
+                            <Link href="/dashboard/upgrade">
                                 <p className="block px-4 py-2 hover:bg-white">Upgrade to Premium</p>
                             </Link>
                         </li>

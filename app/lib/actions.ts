@@ -15,6 +15,7 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
+
   if (formData.get('authType') === 'credentials') {
     try {
       await signIn('credentials', formData);
@@ -24,21 +25,22 @@ export async function authenticate(
         return cleanedMessage
       }
       if (isRedirectError(error)) {
-        redirect('/landing');
+        redirect('/dashboard/landing');
       }
     }
   } else if (formData.get('authType') === 'google') {
     try {
       const session = await auth()
       if (session) {
-        await signOut({redirectTo: "/login"});
+        await signOut();
       }
-      await signIn('google', { redirectTo: '/landing' });
+      await signIn('google', { redirectTo: '/dashboard/landing' });
     } catch (error) {
       if (error instanceof AuthError) {
         const cleanedMessage = error.message.replace(/\. Read more at .+$/, '');
         return cleanedMessage
       }
+      console.log("passing")
       throw error;
     }
   }

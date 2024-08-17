@@ -18,7 +18,7 @@ export default async function Page() {
 
         <div className="flex justify-between items-start ">
             <h1 className="text-4xl md:text-6xl lg:text-9xl">WELCOME TO ARTEMIOS</h1>
-            <a href="/landing">
+            <a href="/dashboard/landing">
               <motion.div
                 whileHover={{
                   opacity: 0.6,

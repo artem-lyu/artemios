@@ -39,10 +39,8 @@ export default function HomePage({ params }: HomePageProps) {
 
     return (
         <div className="flex w-full h-full bg-slate-500">
-            <div>
-                <Sidebar/>
-            </div>
-            <div className="flex-col flex-1 justify-center text-center border">
+            <div className="flex-col flex-1 justify-center text-center">
+                <h1 className="text-4xl py-3">Chat at { new Date(chat['date']).toLocaleString()}</h1>
                 <pre>{transcription}</pre>
             </div>
         </div>
