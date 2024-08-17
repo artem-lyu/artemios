@@ -4,6 +4,7 @@ import Link from "next/link"
 import { auth } from "@/auth"
 // ts-ignore
 import { redirect } from "next/navigation"
+import { ArrowLeftCircle } from "lucide-react"
 export default async function Page() {
 
     const session = await auth();
@@ -15,17 +16,22 @@ export default async function Page() {
     const allSessions = await getDataAll(session.user.id!)
 
     return (
-        <div className="flex bg-slate-500 h-full w-full">
-            <div className="flex-1 text-center">
+        <>
+            <div className="text-center">
                 <h1 className="text-5xl py-4">Past Sessions</h1>
-                <ul className="flex-col text-center justify-center">
-                    {allSessions.map((session: any) => (
-                        <Link href={`/dashboard/sessions/transcript/${session.id}`}>
-                            <p>{new Date(session.date).toLocaleString()}</p>
-                        </Link>
-                    ))}
-                </ul>
+                <div className="flex-auto flex-col text-center justify-center">
+
+                    <ul className="">
+                        {allSessions.map((session: any) => (
+                            <li key={session.id} className="p-2 my-2">
+                                <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
+                                    <p className="hover:underline">{new Date(session.date).toLocaleString()}</p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

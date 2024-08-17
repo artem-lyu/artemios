@@ -39,13 +39,16 @@ export default async function HomePage() {
             <div className="flex-1">
                 <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
                 <Chat accessToken={accessToken} />
-                <div className="flex-col">
-                    <h1 className="font-kaisei text-5xl text-center">Your latest sessions</h1>
-                    <ul className="flex-col text-center">
+                <div>
+                    <h1 className="text-5xl py-4 pt-6 text-center">Latest Sessions</h1>
+                </div>
+                <div className="flex-auto flex-col text-center justify-center">
+
+                    <ul className="">
                         {latestSessions.map((session: any) => (
-                            <li key={session.id}>
-                                <Link href={`/dashboard/sessions/transcript/${session.id}`}>
-                                    <p>{new Date(session.date).toLocaleString()}</p>
+                            <li key={session.id} className="p-2 my-2">
+                                <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
+                                    <p className="hover:underline">{new Date(session.date).toLocaleString()}</p>
                                 </Link>
                             </li>
                         ))}
