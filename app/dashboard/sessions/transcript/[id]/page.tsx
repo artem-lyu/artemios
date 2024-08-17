@@ -38,11 +38,21 @@ export default function HomePage({ params }: HomePageProps) {
     }
     const transcription = chat['transcription']
 
+    const messages: any[] = chat['messages']
+
     return (
         <div className="flex w-full h-full bg-slate-500">
             <div className="flex-col flex-1 justify-center text-center">
-                <h1 className="text-4xl py-3">Chat at { new Date(chat['date']).toLocaleString()}</h1>
+                <h1 className="text-4xl py-3">Chat at {new Date(chat['date']).toLocaleString()}</h1>
                 <pre>{transcription}</pre>
+            </div>
+            <div>
+                {messages.map((message) => (
+                    <div key={message['id']}>
+                        <p>{message['role']}: {message['content']}</p>
+                        <small>{message['timestamp']}</small>
+                    </div>
+                ))}
             </div>
         </div>
     )
