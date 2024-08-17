@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Prosody" ALTER COLUMN "begin" DROP NOT NULL,
+ALTER COLUMN "end" DROP NOT NULL;

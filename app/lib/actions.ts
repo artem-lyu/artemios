@@ -46,7 +46,7 @@ export async function authenticate(
   }
 }
 
-export async function saveMessage(chatHistory: any[]) {
+export async function saveMessage(chatData: any[]) {
   const session = await auth();
 
   const user = session?.user;
@@ -57,7 +57,7 @@ export async function saveMessage(chatHistory: any[]) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        chatHistory,
+        chatData,
         user,
       })
     }

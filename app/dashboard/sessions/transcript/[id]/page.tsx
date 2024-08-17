@@ -32,6 +32,7 @@ export default function HomePage({ params }: HomePageProps) {
     }, [id])
 
 
+
     if (!chat) {
         return <h1>Loading...</h1>
     }

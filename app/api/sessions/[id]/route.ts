@@ -22,6 +22,14 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     // Fetch the chatSession data from the database
     const chatSession = await prisma.chat.findUnique({
         where: { id: String(id), userId: session.user.id },
+        include: {
+            messages: {
+                include: {
+                    prosody: true
+                }
+            },
+            
+        }
     });
 
     // Return the fetched data as a JSON response
