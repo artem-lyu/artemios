@@ -22,14 +22,14 @@ function Sidebar({ user }: SidebarProps) {
 
     return (
         <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[5vh]"} transition-all duration-300`}>
-            <nav className="h-full flex flex-col bg-custom-palette-3-500 font-absans border-r shadow-sm">
+            <nav className="h-full flex flex-col bg-white bg-opacity-75 font-absans border-r border-3 border-slate-500 shadow-sm rounded-lg">
                 <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
                     <h1 className={`text-black font-bold transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0 w-0"}`}>
                         ARTEMIOS
                     </h1>
                     <button
                         onClick={() => setExpanded(!expanded)}
-                        className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 z-10">
+                        className="p-1.5 rounded-lg bg-slate-500 hover:bg-gray-100 z-10">
                         {expanded ? <ChevronFirst /> : <ChevronLast />}
                     </button>
                 </div>
