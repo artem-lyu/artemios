@@ -36,12 +36,12 @@ export default async function HomePage() {
 
     return (
         <div className="flex w-full h-full">
-            <div className="flex flex-row mx-5 my-5 flex-1">
-                <div className="flex-col mx-5">
+            <div className="flex flex-row mx-5 my-5 flex-1 ">
+                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
                     <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
                     <Chat accessToken={accessToken} />
                 </div>
-                <div className="flex-col mx-5 ">
+                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
                     <h1 className="text-5xl text-center">Latest Sessions</h1>
                     <div className="flex-auto flex-col text-center justify-center">
                         <ul className="">

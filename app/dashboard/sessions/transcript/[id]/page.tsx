@@ -65,7 +65,6 @@ export default function HomePage({ params }: HomePageProps) {
         .slice(0, 10);
 
 
-
     return (
         <div className="flex w-full bg-slate-500 justify-center items-center ">
             <div className="flex flex-col justify-center text-center overflow-y-auto">
