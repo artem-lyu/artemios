@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { handleSignOut } from "@/app/lib/signOutAction";
 import { ChevronFirst, ChevronLast } from "lucide-react";
+import { Home, History, Settings, CircleHelp, Crown } from "lucide-react";
 import { createContext, useState, useEffect } from "react";
 import UserInformation from "./ui/user-information";
 import { memo } from "react";
@@ -15,12 +16,12 @@ interface SidebarProps {
 
 const SideBarContext = createContext({});
 
-function Sidebar({user}: SidebarProps) {
+function Sidebar({ user }: SidebarProps) {
     const [expanded, setExpanded] = useState(false);
 
 
     return (
-        <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[8vh]"} transition-all duration-300`}>
+        <aside className={`h-screen ${expanded ? "w-[24vh]" : "w-[5vh]"} transition-all duration-300`}>
             <nav className="h-full flex flex-col bg-custom-palette-3-500 font-absans border-r shadow-sm">
                 <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
                     <h1 className={`text-black font-bold transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0 w-0"}`}>
@@ -33,42 +34,55 @@ function Sidebar({user}: SidebarProps) {
                     </button>
                 </div>
                 <SideBarContext.Provider value={{ expanded }}>
-                    <ul className={`transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0"} ${expanded ? "block" : "hidden"} md:block`}>
+                    <ul className={` items-center transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-100"} ${expanded ? "block" : "hidden"} md:block`}>
                         <li className="mb-2">
                             <Link href="/dashboard/landing">
-                                <p className="block px-4 py-2 hover:bg-white">Start new session</p>
+                                <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
+                                    <Home className="mr-2" />
+                                    {expanded && "Home"}
+                                </p>
                             </Link>
                         </li>
                         <li className="mb-2">
                             <Link href="/dashboard/sessions">
-                                <p className="block px-4 py-2 hover:bg-white">Past Sessions</p>
+                                <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
+                                    <History className="mr-2" />
+                                    {expanded && "Sessions"}
+                                </p>
                             </Link>
                         </li>
                         <li className="mb-2">
                             <Link href="/dashboard/settings">
-                                <p className="block px-4 py-2 hover:bg-white">Settings</p>
+                                <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
+                                    <Settings className="mr-2" />
+                                    {expanded && "Settings"}
+                                </p>
                             </Link>
                         </li>
                         <li className="mb-2">
                             <Link href="/dashboard/support">
-                                <p className="block px-4 py-2 hover:bg-white">Support</p>
+                                <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
+                                    <CircleHelp className="mr-2" />
+                                    {expanded && "Support"}
+                                </p>
                             </Link>
                         </li>
                         <li className="mb-2">
                             <Link href="/dashboard/upgrade">
-                                <p className="block px-4 py-2 hover:bg-white">Upgrade to Premium</p>
+                                <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
+                                    <Crown className="mr-2" />
+                                    {expanded && "Upgrade"}
+                                </p>
                             </Link>
-                        </li>
-                        <li className="mb-2">
-                            <form action={handleSignOut}>
-                                <button type="submit" className="block px-4 py-2 hover:bg-white">Sign out</button>
-                            </form>
                         </li>
                     </ul>
                 </SideBarContext.Provider>
 
                 <div className={`flex justify-center items-center mt-auto p-4 transition-all duration-300 ${expanded ? "block" : "hidden"}`}>
                     {user ? (<p>{user.email}</p>) : null}
+                    <form action={handleSignOut}>
+                        <button type="submit" className="px-4 py-2 flex items-center hover:opacity-65 justify-center">{expanded && "Sign out"}</button>
+                    </form>
                 </div>
             </nav>
         </aside>
