@@ -16,7 +16,7 @@ export default async function Page() {
     const allSessions = await getDataAll(session.user.id!)
 
     return (
-        <div className="flex flex-1 m-2 p-4 rounded-lg justify-end border">
+        <div className="flex flex-1 m-2 p-4 rounded-lg justify-end">
             <div className="flex flex-col">
                 <h1 className="text-4xl p-4 bg-custom-palette-3-600 rounded-sm opacity-70">Past Sessions</h1>
                 <ul className="">

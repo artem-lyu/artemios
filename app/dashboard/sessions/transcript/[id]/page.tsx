@@ -1,8 +1,9 @@
 "use client"
 import Expressions from "@/components/Expressions"
 import ExpressionsCustom from "@/components/Expressions"
-import { useEffect } from "react"
+import { ReactNode, useEffect } from "react"
 import { useState } from "react"
+import TopProsodyScores from "@/components/TopProsodyScores"
 
 interface Params {
     id: string
@@ -40,18 +41,48 @@ export default function HomePage({ params }: HomePageProps) {
 
     const messages: any[] = chat['messages']
 
+    // Initialize a variable to store the total prosody score
+    let totalProsodyScore = 0;
+
+    // Aggregate the prosody scores and calculate the total prosody score
+    const aggregatedProsody = messages.reduce((acc, message) => {
+        const prosodyScores: Record<string, number> = message['prosody']['scores'] ?? {};
+        const messageLength = message['content'].length;
+        for (const [key, value] of Object.entries(prosodyScores)) {
+            if (!acc[key]) {
+                acc[key] = 0;
+            }
+            const weightedScore = value * messageLength;
+            acc[key] += weightedScore;
+            totalProsodyScore += weightedScore;
+        }
+        return acc;
+    }, {} as Record<string, number>);
+
+    // Convert to array and sort by score in descending order
+    const topProsodyScores = Object.entries(aggregatedProsody)
+        .sort(([, a]: [string, unknown], [, b]: [string, unknown]) => (b as number) - (a as number))
+        .slice(0, 10);
+
+
+
     return (
-        <div className="flex w-full h-full bg-slate-500 justify-center items-center ">
-            <div className="flex flex-col w-[50%] max-h-full justify-center text-center ">
-                <h1 className="text-4xl py-3">Chat at {new Date(chat['date']).toLocaleString()}</h1>
+        <div className="flex w-full bg-slate-500 justify-center items-center ">
+            <div className="flex flex-col justify-center text-center overflow-y-auto">
+                <h1 className="text-4xl py-3 p-3 m-3 bg-white rounded-lg">Chat at {new Date(chat['date']).toLocaleString()}</h1>
+
+                <TopProsodyScores scores={topProsodyScores} />
 
                 {messages.map((message) => (
                     <div
                         key={message['id']}
-                        className={`message ${message['role'] === 'assistant' ? 'text-left' : 'text-right'} inline-block p-3 m-3 bg-white rounded-lg`}
+                        className={`message p-3 m-3 bg-white rounded-lg ${message['role'] === 'assistant' ? 'mr-20' : 'ml-20'}`}
                     >
-                        <small>{new Date(message['timestamp']).toLocaleTimeString()}</small>
-                        <p>{message['role']}: {message['content']}</p>
+                        <div className="flex justify-between">
+                            <small>{message['role']}</small>
+                            <small>{new Date(message['timestamp']).toLocaleTimeString()}</small>
+                        </div>
+                        <p className="text-left">{message['content']}</p>
                         <ExpressionsCustom values={message['prosody']['scores'] ?? {}} />
                     </div>
                 ))}

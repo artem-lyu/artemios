@@ -25,10 +25,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
     return (
         <div className="flex w-full h-full bg-slate-500">
-            <div>
+            <div className="h-full sticky top-0 left-0">
                 <Sidebar user={session!.user!}/>
             </div>
-            <div className="flex flex-1">
+            <div className="flex-1 flex h-full overflow-y-auto">
                 {children}
             </div>
         </div>

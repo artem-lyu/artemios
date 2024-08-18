@@ -37,7 +37,7 @@ export default async function HomePage() {
     return (
         <div className="flex w-full h-full">
             <div className="flex flex-row mx-5 my-5 flex-1">
-                <div className="flex-col mx-5 border">
+                <div className="flex-col mx-5">
                     <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
                     <Chat accessToken={accessToken} />
                 </div>
