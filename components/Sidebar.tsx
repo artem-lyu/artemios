@@ -93,9 +93,9 @@ function Sidebar({ user }: SidebarProps) {
 
 export default memo(Sidebar);
 
-export function SideBarItem({ icon, text, active, href }) {
-    const { expanded } = useContext(SideBarContext);
-    return (
-        <p>temp</p>
-    )
-}
+// export function SideBarItem({ icon, text, active, href }) {
+//     const { expanded } = useContext(SideBarContext);
+//     return (
+//         <p>temp</p>
+//     )
+// }
