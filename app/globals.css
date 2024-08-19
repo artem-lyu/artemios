@@ -77,3 +77,13 @@
   font-family: "Absans-Regular";
   src: url("../public/fonts/Absans/Absans-Regular.otf");
 }
+
+@font-face {
+  font-family: 'DM-Serif-Display';
+  src: url("../public/fonts/DM_Serif/DMSerifDisplay-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url("../public/fonts/Raleway/Raleway-Regular.ttf");
+}

@@ -17,6 +17,8 @@ const config = {
       'kaisei': ['"Kaisei_HarunoUmi"', 'sans-serif'],
       'kaisei-bold': ['"Kaisei_HarunoUmi_bold"', 'sans-serif'],
       'absans': ['Absans-Regular'],
+      'display-serif' : ['DM-Serif-Display'],
+      'raleway': ['Raleway'],
     },
     container: {
       center: true,

@@ -43,14 +43,16 @@ export default async function HomePage() {
 
     const prosodyScores = sessionsLast7Days.flatMap((session: any) => {
         const messages = session['messages'];
-        return messages.flatMap((message: any) => {
-            const prosodyScores: Record<string, number> = message['prosody']['scores'] ?? {};
-            const messageLength = message['content'].length;
-            return Object.entries(prosodyScores).map(([key, value]) => ({
-                key,
-                score: value * messageLength,
-            }));
-        });
+        return messages
+            .filter((message: any) => message['role'] === 'user') // Filter only user messages
+            .flatMap((message: any) => {
+                const prosodyScores: Record<string, number> = message['prosody']['scores'] ?? {};
+                const messageLength = message['content'].length;
+                return Object.entries(prosodyScores).map(([key, value]) => ({
+                    key,
+                    score: value * messageLength,
+                }));
+            });
     });
 
     const aggregatedProsody = prosodyScores.reduce((acc: any, { key, score }) => {
@@ -72,13 +74,13 @@ export default async function HomePage() {
     }
 
     return (
-        <div className="flex w-full h-full">
+        <div className="flex w-full h-full font-raleway">
             <div className="flex flex-row mx-5 my-5 flex-1 ">
-                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
-                    <h1 className="font-kaisei text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
+                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
+                    <h1 className="text-5xl text-center">Hi {session?.user?.name}, how are you today?</h1>
                     <Chat accessToken={accessToken} />
                 </div>
-                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
+                <div className="flex-col mx-5 border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
                     <h1 className="text-5xl text-center">Latest Sessions</h1>
                     <div className="flex-auto flex-col text-center justify-center">
                         <ul className="">
@@ -93,7 +95,7 @@ export default async function HomePage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
+                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
                     <h1 className="text-5xl text-center">Your Weekly Roundup</h1>
                     <ul className="text-center">
                         {topProsodyScores.map(([key, score], index) => (
