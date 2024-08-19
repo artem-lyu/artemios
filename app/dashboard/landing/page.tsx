@@ -1,15 +1,15 @@
 import "../../globals.css";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import { getHumeAccessToken } from "@/utils/getHumeAccessToken";
 import Sidebar from "@/components/Sidebar";
 import { auth } from "@/auth";
 // @ts-ignore
 import { redirect } from "next/navigation";
-import { PrismaClient } from "@prisma/client";
+import ExpressionsCustom from "@/components/ExpressionsCustom";
 import { getDataLatest } from "../../lib/data";
 import Link from "next/link";
-import RootLayout from "../../layout";
+import { getDataAll } from "../../lib/data";
 
 export default async function HomePage() {
 
@@ -30,6 +30,43 @@ export default async function HomePage() {
 
     const latestSessions = await getDataLatest(session.user.id!);
 
+    const allSessions = await getDataAll(session.user.id!)
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+
+    const sessionsLast7Days = allSessions.filter((session: any) => {
+        const sessionDate = new Date(session.date);
+        return sessionDate >= sevenDaysAgo;
+    });
+
+    const prosodyScores = sessionsLast7Days.flatMap((session: any) => {
+        const messages = session['messages'];
+        return messages.flatMap((message: any) => {
+            const prosodyScores: Record<string, number> = message['prosody']['scores'] ?? {};
+            const messageLength = message['content'].length;
+            return Object.entries(prosodyScores).map(([key, value]) => ({
+                key,
+                score: value * messageLength,
+            }));
+        });
+    });
+
+    const aggregatedProsody = prosodyScores.reduce((acc: any, { key, score }) => {
+        if (!acc[key]) {
+            acc[key] = 0;
+        }
+        acc[key] += score;
+        return acc;
+    }, {});
+
+    const topProsodyScores = Object.entries(aggregatedProsody)
+        .sort(([, a], [, b]) => (b as number) - (a as number))
+        .slice(0, 10)
+
+
+    const maxScore = Math.max(...topProsodyScores.map(([, score]) => score as number));
     if (!accessToken) {
         throw new Error();
     }
@@ -54,6 +91,22 @@ export default async function HomePage() {
                             ))}
                         </ul>
                     </div>
+                </div>
+
+                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white rounded-lg">
+                    <h1 className="text-5xl text-center">Your Weekly Roundup</h1>
+                    <ul className="text-center">
+                        {topProsodyScores.map(([key, score], index) => (
+                            <li key={index} className="p-2 my-2">
+                                <div className="relative group">
+                                    <ExpressionsCustom key={key} values={{ [key]: score as number / maxScore }} />
+                                    <span className="absolute left-0 top-0 mt-2 ml-2 text-xs bg-gray-200 rounded px-2 py-1 opacity-0 group-hover:opacity-100">
+                                        {key}: {(score as number).toFixed(2)}
+                                    </span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { handleSignOut } from "@/app/lib/signOutAction";
 import { ChevronFirst, ChevronLast } from "lucide-react";
 import { Home, History, Settings, CircleHelp, Crown } from "lucide-react";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import UserInformation from "./ui/user-information";
 import { memo } from "react";
 import { auth } from "@/auth";
@@ -90,3 +90,10 @@ function Sidebar({ user }: SidebarProps) {
 }
 
 export default memo(Sidebar);
+
+export function SideBarItem({ icon, text, active, href}) {
+    const { expanded } = useContext(SideBarContext);
+    return (
+        <p>temp</p>
+    )
+}

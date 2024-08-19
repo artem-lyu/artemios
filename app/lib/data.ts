@@ -30,8 +30,11 @@ export async function getDataAll(userId: string) {
         where: {
             userId: userId,
         },
-        orderBy: {
-            date: "desc",
+        include: {
+            messages: {
+                include: {
+                    prosody: true,
+                }}
         }
     });
 
@@ -46,6 +49,13 @@ export async function getDataById(id: string) {
     const data = await prisma.chat.findUnique({
         where: {
             id: id,
+        },
+        include: {
+            messages: {
+                include: {
+                    prosody: true,
+                },
+            },
         }
     });
 
