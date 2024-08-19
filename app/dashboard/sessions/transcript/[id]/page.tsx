@@ -45,7 +45,9 @@ export default function HomePage({ params }: HomePageProps) {
     let totalProsodyScore = 0;
 
     // Aggregate the prosody scores and calculate the total prosody score
-    const aggregatedProsody = messages.reduce((acc, message) => {
+    const aggregatedProsody = messages.filter((message: any) => message['role'] === 'user'
+
+    ).reduce((acc, message) => {
         const prosodyScores: Record<string, number> = message['prosody']['scores'] ?? {};
         const messageLength = message['content'].length;
         for (const [key, value] of Object.entries(prosodyScores)) {
