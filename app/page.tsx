@@ -8,6 +8,7 @@ import undraw_hiking from '@/public/images/undraw_hiking_re_k0bc.svg';
 import different_love from '@/public/images/undraw_different_love.png'
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
 
 
 export default async function Page() {
@@ -37,7 +38,7 @@ export default async function Page() {
             "We're so glad you could make it!\nWe're here to help you grow. ",
           ]}
           wrapper="span" cursor={false} repeat={0} style={{ display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
-
+        <Link href="/register">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -52,6 +53,7 @@ export default async function Page() {
             Get started
           </motion.button>
         </motion.div>
+        </Link>
         <div className='flex flex-1 items-end justify-end'>
           <p className='max-w-xl text-left mx-4 my-4 text-2xl rounded-lg p-5'>ARTEMIOS is a powerful tool for anyone looking to gain a deeper understanding of their emotional health. By providing personalized insights and an engaging user experience, we help users take proactive steps towards improving their emotional well-being.</p>
         </div>
