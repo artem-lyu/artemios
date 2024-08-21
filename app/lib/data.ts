@@ -16,6 +16,13 @@ export async function getDataLatest(userId: string) {
             date: "desc",
         },
         take: 5,
+        include : {
+            messages: {
+                include: {
+                    prosody: true,
+                },
+            },
+        }
     });
 
     return latestSessions
