@@ -34,7 +34,7 @@ const VADVisualization = ({ vadValues }: { vadValues: Array<any> }) => {
         scales: {
             x: {
                 type: 'linear', // Update the type to "linear"
-                position: 'bottom',
+                // position: 'bottom',
                 min: -1,
                 max: 1,
                 title: {

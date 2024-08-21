@@ -173,9 +173,12 @@ export default async function HomePage() {
                     </ul>
                 </div>
 
-                <div>
-                    <VADVisualization vadValues={vadValues} />
-                </div> 
+                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
+                    <h1 className="text-5xl text-center p-5">VAD Visualization</h1>
+                    <div className="flex justify-center bg-white">
+                        <VADVisualization vadValues={vadValues}/>
+                    </div>
+                </div>
 
             </div>
         </div>

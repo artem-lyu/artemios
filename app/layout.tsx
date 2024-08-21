@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "ARTEMIOS",
@@ -20,6 +21,14 @@ export default function RootLayout({
       <body className="">
         <SpeedInsights />
         <Analytics />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-6GPPVSXJRE"></Script>
+        <Script>
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-6GPPVSXJRE')`};
+        </Script>
         {children}
       </body>
     </html>
