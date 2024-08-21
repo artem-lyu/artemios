@@ -101,6 +101,9 @@ export default async function HomePage() {
         return Object.entries(aggregatedScores).reduce((a: [string, number], b: [string, number]) => a[1] > b[1] ? a : b, ['', 0])[0];
     };
 
+    const latestSession = latestSessions[0];
+    //const vadValues = extractVADValues(latestSession.messages || []);
+
 
     return (
         <div className="flex w-full h-full font-raleway">
@@ -176,6 +179,8 @@ export default async function HomePage() {
                         ))}
                     </ul>
                 </div>
+
+
             </div>
         </div>
     )
