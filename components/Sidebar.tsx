@@ -53,30 +53,30 @@ function Sidebar({ user }: SidebarProps) {
                                 </p>
                             </Link>
                         </li>
-                        <li className="mb-2">
+                        {/* <li className="mb-2">
                             <Link href="/dashboard/settings">
                                 <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
                                     <Settings className="mr-2" />
                                     {expanded && "Settings"}
                                 </p>
                             </Link>
-                        </li>
-                        <li className="mb-2">
+                        </li> */}
+                        {/* <li className="mb-2">
                             <Link href="/dashboard/support">
                                 <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
                                     <CircleHelp className="mr-2" />
                                     {expanded && "Support"}
                                 </p>
                             </Link>
-                        </li>
-                        <li className="mb-2">
+                        </li> */}
+                        {/* <li className="mb-2">
                             <Link href="/dashboard/upgrade">
                                 <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
                                     <Crown className="mr-2" />
                                     {expanded && "Upgrade"}
                                 </p>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </SideBarContext.Provider>
 
