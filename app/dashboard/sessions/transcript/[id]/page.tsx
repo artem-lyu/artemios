@@ -69,7 +69,7 @@ export default function HomePage({ params }: HomePageProps) {
 
     return (
         <div className="flex w-full bg-slate-500 justify-center items-center ">
-            <div className="flex flex-col justify-center text-center overflow-y-auto">
+            <div className="flex flex-col justify-center w-[30%] text-center overflow-y-auto">
                 <h1 className="text-4xl py-3 p-3 m-3 bg-white rounded-lg">Chat at {new Date(chat['date']).toLocaleString()}</h1>
 
                 <TopProsodyScores scores={topProsodyScores} />

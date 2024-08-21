@@ -102,9 +102,6 @@ export default async function HomePage() {
         return Object.entries(aggregatedScores).reduce((a: [string, number], b: [string, number]) => a[1] > b[1] ? a : b, ['', 0])[0];
     };
 
-    const latestSession = latestSessions[0];
-    const vadValues = extractVADValues(latestSession.messages || []);
-
 
 
     return (
@@ -123,7 +120,7 @@ export default async function HomePage() {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th> */}
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
                                 </tr>
                             </thead>
@@ -142,9 +139,9 @@ export default async function HomePage() {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <p>{new Date(session.date).toLocaleTimeString()}</p>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            {/* <td className="px-6 py-4 whitespace-nowrap">
                                                 <p>{formatDuration(session.duration)}</p>
-                                            </td>
+                                            </td> */}
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <EmotionDot emotion={getDominantEmotion(session['messages'])} />
                                                 <p>{getDominantEmotion(session['messages'])}</p>
@@ -173,12 +170,12 @@ export default async function HomePage() {
                     </ul>
                 </div>
 
-                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
+                {/* <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
                     <h1 className="text-5xl text-center p-5">VAD Visualization</h1>
                     <div className="flex justify-center bg-white">
                         <VADVisualization vadValues={vadValues}/>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </div>
