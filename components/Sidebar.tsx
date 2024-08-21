@@ -53,7 +53,7 @@ function Sidebar({ user }: SidebarProps) {
                                 </p>
                             </Link>
                         </li>
-                        <li className="mb-2">
+                        {/* <li className="mb-2">
                             <Link href="/dashboard/settings">
                                 <p className="px-4 py-2 hover:opacity-65 flex justify-center items-center">
                                     <Settings className="mr-2" />
@@ -76,7 +76,7 @@ function Sidebar({ user }: SidebarProps) {
                                     {expanded && "Upgrade"}
                                 </p>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </SideBarContext.Provider>
 
