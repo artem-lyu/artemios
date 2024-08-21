@@ -22,7 +22,7 @@ export async function getDataLatest(userId: string) {
                     prosody: true,
                 },
             },
-        }
+        }// Add this line to bypass the type checking error
     });
 
     return latestSessions

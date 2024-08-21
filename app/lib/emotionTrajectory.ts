@@ -21,7 +21,7 @@ const extractVADValues = (messages: any[]): VAD[] => {
                     score: emotionScores[emotion],
                     vad: expressionCoordinates[emotion]
                 }))
-                .filter(({ vad }) => vad[0] !== null && vad[1] !== null && vad[2] !== null)
+                .filter(({ vad }) => vad && vad[0] !== null && vad[1] !== null && vad[2] !== null)
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 3)
 

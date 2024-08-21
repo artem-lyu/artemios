@@ -11,11 +11,12 @@ import { getDataLatest } from "../../lib/data";
 import Link from "next/link";
 import { getDataAll } from "../../lib/data";
 import EmotionDot from '@/components/EmotionDot';
-import { expressionColors } from '@/utils/expressionColors';
-
+import extractVADValues from "@/app/lib/emotionTrajectory";
+import VADVisualization from "@/components/VADVis";
 
 
 export default async function HomePage() {
+
 
     const session = await auth();
     if (!session?.user) {
@@ -102,7 +103,8 @@ export default async function HomePage() {
     };
 
     const latestSession = latestSessions[0];
-    //const vadValues = extractVADValues(latestSession.messages || []);
+    const vadValues = extractVADValues(latestSession.messages || []);
+
 
 
     return (
@@ -115,15 +117,6 @@ export default async function HomePage() {
                 <div className="flex-col mx-5 border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
                     <h1 className="text-5xl text-center py-5">Latest Sessions</h1>
                     <div className="flex-auto flex-col text-center justify-center">
-                        {/* <ul className="">
-                            {latestSessions.map((session: any) => (
-                                <li key={session.id} className="p-2 my-2">
-                                    <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
-                                        <p className="hover:underline">{new Date(session.date).toLocaleString()}</p>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul> */}
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
                                 <tr>
@@ -180,6 +173,9 @@ export default async function HomePage() {
                     </ul>
                 </div>
 
+                <div>
+                    <VADVisualization vadValues={vadValues} />
+                </div> 
 
             </div>
         </div>
