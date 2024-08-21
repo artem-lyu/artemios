@@ -38,7 +38,7 @@ export default async function Page() {
             "We're so glad you could make it!\nWe're here to help you grow. ",
           ]}
           wrapper="span" cursor={false} repeat={0} style={{ display: 'inline-block', fontFamily: 'absans-regular', whiteSpace: 'pre-line', height: '195px' }} />
-        <Link href="/register">
+        <Link href="/login">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
