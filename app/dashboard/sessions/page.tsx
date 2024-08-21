@@ -5,6 +5,8 @@ import { auth } from "@/auth"
 // ts-ignore
 import { redirect } from "next/navigation"
 import { ArrowLeftCircle } from "lucide-react"
+import EmotionDot from "@/components/EmotionDot"
+
 export default async function Page() {
 
     const session = await auth();
@@ -13,21 +15,73 @@ export default async function Page() {
         redirect("/login?session=false");
     }
 
+    const formatDuration = (seconds: number) => {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        return `${h}h ${m}m ${s}s`;
+    };
+
+    const getDominantEmotion = (messages: any[]) => {
+        const prosodyScores = messages
+            .filter((message: any) => message['role'] === 'user') // Filter only user messages
+            .flatMap((message: any) => Object.entries(message['prosody']['scores'] || {}));
+
+        const aggregatedScores: Record<string, number> = prosodyScores.reduce((acc: Record<string, number>, [emotion, score]) => {
+            if (!acc[emotion]) {
+                acc[emotion] = 0;
+            }
+            acc[emotion] += score as number;
+            return acc;
+        }, {} as Record<string, number>);
+
+
+        return Object.entries(aggregatedScores).reduce((a: [string, number], b: [string, number]) => a[1] > b[1] ? a : b, ['', 0])[0];
+    };
+
     const allSessions = await getDataAll(session.user.id!)
 
     return (
         <div className="flex flex-1 m-2 p-4 rounded-lg justify-end">
             <div className="flex flex-col">
                 <h1 className="text-4xl p-4 bg-custom-palette-3-600 rounded-sm opacity-70">Past Sessions</h1>
-                <ul className="">
-                    {allSessions.map((session: any) => (
-                        <li key={session.id} className="p-2 my-2">
-                            <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
-                                <p className="hover:underline">{new Date(session.date).toLocaleString()}</p>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                {
+                                    allSessions.map((session: any) => (
+                                        <tr key={session.id}>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
+                                                    <p className="hover:underline">{session.id}</p>
+                                                </Link>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <p>{new Date(session.date).toLocaleDateString()}</p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <p>{new Date(session.date).toLocaleTimeString()}</p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <p>{formatDuration(session.duration)}</p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <EmotionDot emotion={getDominantEmotion(session['messages'])} />
+                                                <p>{getDominantEmotion(session['messages'])}</p>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
             </div>
         </div>
     )

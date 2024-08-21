@@ -37,6 +37,9 @@ export async function getDataAll(userId: string) {
         where: {
             userId: userId,
         },
+        orderBy: {
+            date: "desc",
+        },
         include: {
             messages: {
                 include: {
