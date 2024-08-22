@@ -109,16 +109,11 @@ export default async function HomePage() {
         return fullName.split(' ')[0];
     };
 
-    console.log(latestSessions[0])
 
     return (
         <div className="flex w-full h-full font-raleway">
             <div className="flex flex-col h-full w-full">
                 <div className="flex flex-row mx-5 my-5 flex-1 ">
-                    <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg overflow-y-auto">
-                        <h1 className="text-5xl text-center p-5">Hi {session?.user?.name ? getFirstName(session.user.name) : ''}, how are you today?</h1>
-                        <Chat accessToken={accessToken} />
-                    </div>
                     <div className="flex-col mx-5 border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
                         <h1 className="text-5xl text-center py-5">Latest Sessions</h1>
                         <div className="flex-auto flex-col text-center justify-center">

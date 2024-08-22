@@ -1,4 +1,3 @@
-import Sidebar from "@/components/Sidebar"
 import { getDataAll } from "@/app/lib/data"
 import Link from "next/link"
 import { auth } from "@/auth"
@@ -7,7 +6,7 @@ import { redirect } from "next/navigation"
 import { ArrowLeftCircle } from "lucide-react"
 import EmotionDot from "@/components/EmotionDot"
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: { page?: string } }) {
 
     const session = await auth();
     if (!session?.user) {
@@ -35,11 +34,22 @@ export default async function Page() {
             return acc;
         }, {} as Record<string, number>);
 
-
         return Object.entries(aggregatedScores).reduce((a: [string, number], b: [string, number]) => a[1] > b[1] ? a : b, ['', 0])[0];
     };
 
-    const allSessions = await getDataAll(session.user.id!)
+    const allSessions = await getDataAll(session.user.id!);
+
+    // Get the current page from query parameters, defaulting to 1
+    const currentPage = parseInt(searchParams.page || "1");
+    const sessionsPerPage = 10;
+
+    // Calculate the sessions to display
+    const indexOfLastSession = currentPage * sessionsPerPage;
+    const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+    const currentSessions = allSessions.slice(indexOfFirstSession, indexOfLastSession);
+
+    const isPrevDisabled = currentPage === 1;
+    const isNextDisabled = indexOfLastSession >= allSessions.length;
 
     return (
         <div className="flex flex-1 m-2 p-4 rounded-lg justify-center font-absans">
@@ -56,8 +66,8 @@ export default async function Page() {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {allSessions && allSessions.length > 0 ? (
-                            allSessions.map((session: any) => (
+                        {currentSessions && currentSessions.length > 0 ? (
+                            currentSessions.map((session: any) => (
                                 <tr key={session.id}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
@@ -88,6 +98,28 @@ export default async function Page() {
                         )}
                     </tbody>
                 </table>
+                <div className="flex justify-center mt-4">
+                    {isPrevDisabled ? (
+                        <span className="px-4 py-2 mx-1 bg-gray-300 rounded opacity-50 cursor-not-allowed">Previous</span>
+                    ) : (
+                        <Link
+                            href={`?page=${currentPage - 1}`}
+                            className="px-4 py-2 mx-1 bg-gray-300 rounded"
+                        >
+                            Previous
+                        </Link>
+                    )}
+                    {isNextDisabled ? (
+                        <span className="px-4 py-2 mx-1 bg-gray-300 rounded opacity-50 cursor-not-allowed">Next</span>
+                    ) : (
+                        <Link
+                            href={`?page=${currentPage + 1}`}
+                            className="px-4 py-2 mx-1 bg-gray-300 rounded"
+                        >
+                            Next
+                        </Link>
+                    )}
+                </div>
             </div>
         </div>
     )
