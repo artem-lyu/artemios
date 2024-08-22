@@ -1,7 +1,7 @@
 "use client"
 
 import { ChartOptions } from 'chart.js';
-import {Scatter} from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -30,33 +30,48 @@ const VADVisualization = ({ vadValues }: { vadValues: Array<any> }) => {
         ],
     };
 
-    const options: ChartOptions<'scatter'>= {
+    const options: ChartOptions<'scatter'> = {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1,
         scales: {
             x: {
-                type: 'linear', // Update the type to "linear"
-                // position: 'bottom',
+                type: 'linear',
                 min: -1,
                 max: 1,
-                title: {
-                    display: true,
-                    text: 'Valence',
+                grid: {
+                    color: (context) => context.tick.value === 0 ? 'black' : '#e0e0e0',
+                },
+                ticks: {
+                    callback: (value) => value === 0 ? 'Valence' : value,
                 },
             },
             y: {
                 type: 'linear',
                 min: -1,
                 max: 1,
-                title: {
-                    display: true,
-                    text: 'Arousal',
+                grid: {
+                    color: (context) => context.tick.value === 0 ? 'black' : '#e0e0e0',
                 },
+                ticks: {
+                    callback: (value) => value === 0 ? 'Arousal' : value,
+                },
+            },
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            tooltip: {
+                enabled: true,
             },
         },
     };
 
     return (
-        <div>
-            <Scatter data={data} options={options}/>
+        <div className=''>
+            <Scatter data={data} options={options} />
         </div>
     );
 };

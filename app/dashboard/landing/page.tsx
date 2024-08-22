@@ -102,83 +102,95 @@ export default async function HomePage() {
         return Object.entries(aggregatedScores).reduce((a: [string, number], b: [string, number]) => a[1] > b[1] ? a : b, ['', 0])[0];
     };
 
-    const latestSession = latestSessions[0];
-    const vadValues = extractVADValues(latestSession.messages || []);
+    // const latestSession = latestSessions[0];
+    // const vadValues = extractVADValues(latestSession.messages || []);
 
-
+    const getFirstName = (fullName: string) => {
+        return fullName.split(' ')[0];
+    };
+    console.log(topProsodyScores)
 
     return (
         <div className="flex w-full h-full font-raleway">
-            <div className="flex flex-row mx-5 my-5 flex-1 ">
-                <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg overflow-y-auto">
-                    <h1 className="text-5xl text-center p-5">Hi {session?.user?.name}, how are you today?</h1>
-                    <Chat accessToken={accessToken} />
-                </div>
-                <div className="flex-col mx-5 border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
-                    <h1 className="text-5xl text-center py-5">Latest Sessions</h1>
-                    <div className="flex-auto flex-col text-center justify-center">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {
-                                    latestSessions.map((session: any) => (
-                                        <tr key={session.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
-                                                    <p className="hover:underline">{session.id}</p>
-                                                </Link>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{new Date(session.date).toLocaleDateString()}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{new Date(session.date).toLocaleTimeString()}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{formatDuration(session.duration)}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <EmotionDot emotion={getDominantEmotion(session['messages'])} />
-                                                <p>{getDominantEmotion(session['messages'])}</p>
+            <div className="flex flex-col h-full w-full">
+                <div className="flex flex-row mx-5 my-5 flex-1 ">
+                    <div className="flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg overflow-y-auto">
+                        <h1 className="text-5xl text-center p-5">Hi {session?.user?.name ? getFirstName(session.user.name) : ''}, how are you today?</h1>
+                        <Chat accessToken={accessToken} />
+                    </div>
+                    <div className="flex-col mx-5 border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
+                        <h1 className="text-5xl text-center py-5">Latest Sessions</h1>
+                        <div className="flex-auto flex-col text-center justify-center">
+                            <table className="min-w-full divide-y divide-gray-200">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {latestSessions && latestSessions.length > 0 ? (
+                                        latestSessions.map((session, index) => (
+                                            <tr key={index}>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <p>{new Date(session.date).toLocaleDateString()}</p>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <p>{new Date(session.date).toLocaleTimeString()}</p>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <p>{formatDuration(session.duration)}</p>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <EmotionDot emotion={getDominantEmotion(session['messages'])} />
+                                                    <p>{getDominantEmotion(session['messages'])}</p>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan={5} className="px-6 py-4 whitespace-nowrap text-center">
+                                                No sessions yet!
                                             </td>
                                         </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
+                        <h1 className="text-5xl text-center p-5">Your Weekly Roundup</h1>
+                        <ul className="text-center bg-white divide-gray-200 rounded-sm">
+                            {topProsodyScores && topProsodyScores.length > 0 ? (
+                                topProsodyScores.map(([key, score], index) => (
+                                    <li key={index} className="p-2 my-2">
+                                        <div className="relative group">
+                                            <ExpressionsCustom key={key} values={{ [key]: score as number / maxScore }} />
+                                            <span className="absolute left-0 top-0 mt-2 ml-2 text-xs bg-gray-200 rounded px-2 py-1 opacity-0 group-hover:opacity-100">
+                                                {key}: {(score as number).toFixed(2)}
+                                            </span>
+                                        </div>
+                                    </li>
+                                ))
+                            ) : (
+                                <li className="p-2 my-2">No sessions yet!</li>
+                            )}
+                        </ul>
+                    </div>
+
+                    {/* <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
+                        <h1 className="text-5xl text-center p-5">VAD Visualization</h1>
+                        <div className="flex relative justify-center bg-white">
+                            <VADVisualization vadValues={vadValues} />
+                        </div>
+                    </div> */}
+
                 </div>
 
-                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
-                    <h1 className="text-5xl text-center p-5">Your Weekly Roundup</h1>
-                    <ul className="text-center bg-white divide-gray-200 rounded-sm">
-                        {topProsodyScores.map(([key, score], index) => (
-                            <li key={index} className="p-2 my-2">
-                                <div className="relative group">
-                                    <ExpressionsCustom key={key} values={{ [key]: score as number / maxScore }} />
-                                    <span className="absolute left-0 top-0 mt-2 ml-2 text-xs bg-gray-200 rounded px-2 py-1 opacity-0 group-hover:opacity-100">
-                                        {key}: {(score as number).toFixed(2)}
-                                    </span>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="flex flex-col mx-5 border-3 border-sky-300 p-3 m-3 bg-white bg-opacity-75 rounded-lg">
-                    <h1 className="text-5xl text-center p-5">VAD Visualization</h1>
-                    <div className="flex justify-center bg-white">
-                        <VADVisualization vadValues={vadValues}/>
-                    </div>
-                </div>
 
             </div>
         </div>

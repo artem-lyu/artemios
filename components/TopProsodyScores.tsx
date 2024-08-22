@@ -11,7 +11,7 @@ export default function TopProsodyScores({ scores }: TopProsodyScoresProps) {
   const maxScore = Math.max(...scores.map(([, value]) => value));
 
   return (
-    <div className="p-3 m-3 bg-white rounded-lg">
+    <div className="p-3 m-3 bg-white rounded-lg w-[30%]">
       <h2 className="text-2xl">Top 10 Prosody Scores</h2>
       <div className="flex flex-col gap-3">
         {scores.map(([key, value]) => (

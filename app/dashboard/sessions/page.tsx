@@ -42,46 +42,52 @@ export default async function Page() {
     const allSessions = await getDataAll(session.user.id!)
 
     return (
-        <div className="flex flex-1 m-2 p-4 rounded-lg justify-end">
-            <div className="flex flex-col">
-                <h1 className="text-4xl p-4 bg-custom-palette-3-600 rounded-sm opacity-70">Past Sessions</h1>
+        <div className="flex flex-1 m-2 p-4 rounded-lg justify-center font-absans">
+            <div className="flex flex-col justify-center text-center border-3 border-sky-300 bg-opacity-75 p-3 m-3 bg-white rounded-lg">
+                <h1 className="text-5xl text-center py-5">Past Sessions</h1>
                 <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Session Number</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominant Emotion</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {allSessions && allSessions.length > 0 ? (
+                            allSessions.map((session: any) => (
+                                <tr key={session.id}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
+                                            <p className="hover:underline">{session.id}</p>
+                                        </Link>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <p>{new Date(session.date).toLocaleDateString()}</p>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <p>{new Date(session.date).toLocaleTimeString()}</p>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <p>{formatDuration(session.duration)}</p>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <EmotionDot emotion={getDominantEmotion(session['messages'])} />
+                                        <p>{getDominantEmotion(session['messages'])}</p>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {
-                                    allSessions.map((session: any) => (
-                                        <tr key={session.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
-                                                    <p className="hover:underline">{session.id}</p>
-                                                </Link>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{new Date(session.date).toLocaleDateString()}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{new Date(session.date).toLocaleTimeString()}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <p>{formatDuration(session.duration)}</p>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <EmotionDot emotion={getDominantEmotion(session['messages'])} />
-                                                <p>{getDominantEmotion(session['messages'])}</p>
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={5} className="px-6 py-4 whitespace-nowrap text-center">
+                                    No sessions yet!
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
         </div>
     )

@@ -66,21 +66,27 @@ export default function HomePage({ params }: HomePageProps) {
         .sort(([, a]: [string, unknown], [, b]: [string, unknown]) => (b as number) - (a as number))
         .slice(0, 10);
 
+    const capitalizeFirstLetter = (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
 
     return (
         <div className="flex w-full bg-slate-500 justify-center items-center ">
-            <div className="flex flex-col justify-center text-center overflow-y-auto">
-                <h1 className="text-4xl py-3 p-3 m-3 bg-white rounded-lg">Chat at {new Date(chat['date']).toLocaleString()}</h1>
+            <div className="flex flex-col justify-center items-center text-center overflow-y-auto">
+                <div className="w-[50%]">
+                    <h1 className="text-4xl py-3 p-3 m-3 bg-white rounded-lg">Chat at {new Date(chat['date']).toLocaleString()}</h1>
+                </div>
 
                 <TopProsodyScores scores={topProsodyScores} />
 
                 {messages.map((message) => (
                     <div
                         key={message['id']}
-                        className={`message p-3 m-3 bg-white rounded-lg ${message['role'] === 'assistant' ? 'mr-20' : 'ml-20'}`}
+                        className={`w-[50%] message p-3 m-3 bg-white rounded-lg ${message['role'] === 'assistant' ? 'mr-20' : 'ml-20'}`}
                     >
                         <div className="flex justify-between">
-                            <small>{message['role']}</small>
+                            <small>{capitalizeFirstLetter(message['role'])}</small>
                             <small>{new Date(message['timestamp']).toLocaleTimeString()}</small>
                         </div>
                         <p className="text-left">{message['content']}</p>
