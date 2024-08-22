@@ -108,7 +108,8 @@ export default async function HomePage() {
     const getFirstName = (fullName: string) => {
         return fullName.split(' ')[0];
     };
-    console.log(topProsodyScores)
+
+    console.log(latestSessions[0])
 
     return (
         <div className="flex w-full h-full font-raleway">
@@ -135,6 +136,11 @@ export default async function HomePage() {
                                     {latestSessions && latestSessions.length > 0 ? (
                                         latestSessions.map((session, index) => (
                                             <tr key={index}>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <Link href={`/dashboard/sessions/transcript/${session.id}`} className="inline-block">
+                                                        <p className="hover:underline">{session.id}</p>
+                                                    </Link>
+                                                </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <p>{new Date(session.date).toLocaleDateString()}</p>
                                                 </td>
