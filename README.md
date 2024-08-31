@@ -5,6 +5,6 @@ ARTEMIOS is a mental health platform developed to help users become more aware o
 
 ## Link
 
-To try it out yourself, go to artemios.app
+To try it out yourself, go to artemios.app. Login is required.
 
 
