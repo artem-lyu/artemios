@@ -51,7 +51,7 @@ export async function saveMessage(chatData: any[]) {
 
   const user = session?.user;
   try {
-    const response = await fetch('@/api/saveChat', {
+    const response = await fetch('../api/saveChat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
